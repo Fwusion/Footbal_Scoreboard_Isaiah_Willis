@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <unistd.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -37,27 +38,33 @@ class Scoreboard
     int quarter, downs, toGo;
     Team home;
     Team visitor;
+    bool possession;
   public:
     Scoreboard()
     {
       quarter = 0, downs = 0, toGo = 0;
+      possession = true;
     }
     void setQuarter(int q) { quarter = q; }
     void setDowns(int d) { downs = d; }
     void setToGo(int tg) { toGo = tg; }
     void setHome(Team h) { home = h; }
     void setVisitor(Team v) { visitor = v; }
+    void setPos(bool p) { possession = p; }
     int getQuarter() const { return quarter; }
     int getDowns() const { return downs; }
     int getToGo() const { return toGo; }
     Team getHome() const { return home; }
-    Team getVisitor() const {return visitor; }
+    Team getVisitor() const { return visitor; }
+    bool getPos() const { return possession; }
 
     void showScoreboard()
     {
-      cout << "yo" << endl;
-      cout << home.getName() << "\t\t" << visitor.getName() << endl;
-      cout << "\t" << home.getScore() << "\t\t\t\t" << visitor.getScore() << endl;
+      cout << "\t\tIsaiah's Football Scoreboard" << endl;
+      for(int i = 0; i < 45; i++) { cout << "*"; }
+      cout << "\n" << setw(10) << home.getName() << "\t\t" << setw(10) << visitor.getName() << endl;
+      cout << setw(5) << home.getScore() << "\t\t\t" << setw(5) << visitor.getScore() << endl;
+      
     }
 };
 
@@ -67,7 +74,7 @@ void scoreboardLengend()
   Team one;
   Team two;
   string userInput = "", newName = "";
-  int newScore = 0;
+  int newScore = 0, newPos = 0, newDown = 0, newTG = 0, newQ = 0;
 
   one.setHomeStat(true);
   s.setHome(one);
@@ -78,8 +85,8 @@ void scoreboardLengend()
   {
     system("clear");
     s.showScoreboard();
-    cout << "*************************" << endl;
-    cout << "Scoreboard Legend!" << endl;
+    for(int i = 0; i < 45; i++) { cout << "*"; }
+    cout << "\nScoreboard Legend!" << endl;
     cout << "A = Change Home Team's Name." << endl;
     cout << "B = Change Visitor Team's Name." << endl;
     cout << "C = Change Home's Score" << endl;
@@ -99,15 +106,55 @@ void scoreboardLengend()
     }
     else if(userInput == "B" || userInput == "b")
     {
-      cout << "Please Enter The Visitor Team's Name" << endl;
+      cout << "Please Enter The Visitor Team's Name: ";
       cin >> newName;
       two.setName(newName);
     }
-    else if(userInput == "c" || userInput == "c")
+    else if(userInput == "C" || userInput == "c")
     {
-      cout << "Please Enter The New Score For The Home Team" << endl;
+      cout << "Please Enter The New Score For The Home Team: ";
       cin >> newScore;
       one.setScore(newScore);
+    }
+    else if(userInput == "D" || userInput == "d")
+    {
+      cout << "Please Enter The New Score For The Visitor Team: ";
+      cin >> newScore;
+      two.setScore(newScore);
+    }
+    else if(userInput == "E" || userInput == "e")
+    {
+      cout << "Who Has The Ball?" << endl;
+      cin >> newPos;
+      if(newPos == 1)
+      {
+        s.setPos(true);
+        cout << "Home has the ball." << endl;
+        
+      }
+      else
+      {
+        s.setPos(false);
+        cout << "Visitors have the ball." << endl;
+      }
+    }
+    else if(userInput == "F" || userInput == "f")
+    {
+      cout << "Please Enter The Current Down" << endl;
+      cin >> newDown;
+      s.setDowns(newDown);
+    }
+    else if(userInput == "G" || userInput == "g")
+    {
+      cout << "Please Enter How Many Yards To Go For A First Down. ";
+      cin >> newTG;
+      s.setToGo(newTG);
+    }
+    else if(userInput == "H" || userInput == "h")
+    {
+      cout << "Please Enter The Current Quarter. ";
+      cin >> newQ;
+      s.setQuarter(newQ);
     }
     else if(userInput == "X" || userInput == "x")
     {
@@ -121,7 +168,7 @@ void scoreboardLengend()
     }
 
 
-    s.setHome(one);
-    s.setVisitor(two);
+   s.setHome(one);
+  s.setVisitor(two);
   }while(userInput != "X" && userInput != "x");
 }
