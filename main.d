@@ -1,1 +1,1 @@
-main.o main.d : main.cpp
+main.o main.d : main.cpp classnfunction.h
