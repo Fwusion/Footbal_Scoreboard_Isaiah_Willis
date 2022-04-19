@@ -61,9 +61,12 @@ class Scoreboard
 
     void showScoreboard()
     {
+      string color = "\x1b[35;1m";
+      string color2 = "\x1b[33;4m";
+      string reset = "\x1b[0m";
       
-      cout << "\t  Isaiah's Football Scoreboard" << endl;
-      for(int i = 0; i < 38; i++) { cout << "*"; }
+      cout << color2 << "\t  Isaiah's Football Scoreboard" << reset <<  endl;
+      for(int i = 0; i < 38; i++) { cout << color << "*" << reset; }
       cout << "\nHome\t\t\t\t\t\tVisitor" << endl;
       cout << setw(7) << home.getName() << "\t\t\t\t" << setw(12) << visitor.getName() << endl;
       cout << setw(7) << home.getCName() << "\t\t\t\t" << setw(7) << visitor.getCName() << endl;
@@ -84,6 +87,10 @@ void scoreboardLengend()
   Team two;
   string userInput = "", newName = "", newCName = "";
   int newScore = 0, newPos = 0, newDown = 0, newTG = 0, newQ = 0;
+  string color = "\x1b[35;1m";
+  string color2 = "\x1b[31;4m";
+  string color3 = "\x1b[34;3m";
+  string reset = "\x1b[0m";
 
   one.setHomeStat(true);
   s.setHome(one);
@@ -94,8 +101,8 @@ void scoreboardLengend()
   {
     system("clear");
     s.showScoreboard();
-    for(int i = 0; i < 38; i++) { cout << "*"; }
-    cout << "\nScoreboard Legend!" << endl;
+    for(int i = 0; i < 38; i++) { cout << color << "*" << reset; }
+    cout << color3 << "\nScoreboard Legend!" << endl;
     cout << "A = Change Home Team's Name." << endl;
     cout << "B = Change Visiting Team's Name." << endl;
     cout << "C = Change Home's Score" << endl;
@@ -107,7 +114,7 @@ void scoreboardLengend()
     cout << "I = Edit Home Team's Coach" << endl;
     cout << "J = Edit Visiting Team's Coach" << endl;
     cout << "X = Exit Menu" << endl;
-    cout << endl;
+    cout << reset << endl;
     userInput = validateString(userInput);
 
     if(userInput == "A" || userInput == "a")
@@ -202,7 +209,7 @@ void scoreboardLengend()
     else if(userInput == "X" || userInput == "x")
     {
       system("clear");
-      cout << "End Game!" << endl;
+      cout << color2 <<  "Game Over!" << endl;
     }
     else
     {
